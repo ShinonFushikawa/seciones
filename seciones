@@ -1,0 +1,27 @@
+<?php
+session_start(); //se crea la secion no es lo mismo que iniciar secion
+
+if(isset($_SESSION ["usuario"])){
+    header("panel.php");
+    exit;
+}
+
+$error = "";
+
+if($_SERVER["REQUEST_METHOD"]=== "POST"){
+    $usuario = $_POST["usuario"] ?? "";
+    $clave = $_POST["clave"] ?? "";
+}
+
+if ($usuario ==="alumno" && $clave === "1234") { //este es el login
+    session_regenerate_id(true);
+    $_SESSION ["usuario"] = $usuario;
+    $_SESSION ["hora"] = date("H:i:s");
+    $_SESSION ["visitas"] = 0;
+    header ("Location: panel.php");
+        exit;
+    } else {
+        $error= "Usuario o clave esta mal";
+}
+
+// el tema que estmos dando es seciones 
